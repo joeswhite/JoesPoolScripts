@@ -71,7 +71,7 @@ class email:
 		#check if we want to use the long email alert tempate, if not we will use the small one
 		if str(emailType) == str('1'):
 			#tell the user that the email is long format
-			print 'Long \(type 1\) format email being sent'
+			print 'Long format email being sent'
 
 			#The actual email message and header construction
 			message = """From: """ + str(senderName) + """ <""" + str(senderEmail) + """>
@@ -85,11 +85,11 @@ class email:
 			Network Hashrate:  """ + str(totalNetwork / 100) + """TH/s
 			Non-Multipool pools total:  """ + str(knownNetworkMinusMultipool / 100) + """TH/s
 
-			Threat Level: """ + str(level) +""" (the smaller the number higher risk)
+			Threat Level: """ + str(level) +""" (1-7 the smaller the number higher risk)
 			"""
 		else:
                         #tell the user that the email is long format
-                        print 'Short \(type 0\) format email being sent'
+                        print 'Short format email being sent'
 
                         #The actual email message and header construction
 			message = """From: """ + str(senderName)+ """ <""" + str(senderEmail) + """>
@@ -128,10 +128,9 @@ class apiCalls:
 		#set variables
 		info = 0 #set to 0 because it will be used later and needs to be defined
 
+		#parse knownpools json string to get pool+network reported hashrate
 		joesTicker = urllib2.urlopen('http://freicoin.us/knownpools.php')
 		joesTicker_obj = json.load(joesTicker)
-
-
 
 		#total known network hashrates (this doesn't need to be perfect because we just want to know when multipool is about to hash-n-dash 
 		totalNetwork = float(joesTicker_obj['Network Total'])
