@@ -27,6 +27,6 @@ for (( ; ; ))
 do
         python multipool_high_hashrate_notifier.py
         #after the process is done, i sleep for 1 minute, any more and there's no point as the knownpools api won't update
-        sleep ($sleepTime * 60)
+		sleep $((($sleepTime) * 60))
 done
 
