@@ -96,7 +96,7 @@ Threat Level: """ + str(level) +""" (1-7 the smaller the number higher risk)"""
 			message = """From: """ + str(senderName)+ """ <""" + str(senderEmail) + """>
 To: """ + str(receiverName) + """ <""" + str(receiver) + """> 
 Subject: Alert """ + str(multipoolHash) + """% of network controlled by Multipool
-
+\n
 LVL: """ + str(level) + """
 MP: """ + str(float(multipoolHash)) + """%
 HR: """ + str(float(multipoolRate) / float(1000)) + """TH/s
