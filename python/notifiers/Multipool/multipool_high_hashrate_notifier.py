@@ -174,7 +174,7 @@ class apiCalls:
 					level = 2
 
                                 #if hashrate is above 99% of the total network
-				if multipoolHAsh >= 99:
+				if multipoolHash >= 99:
 					level = 1
 
 			#print threat level
