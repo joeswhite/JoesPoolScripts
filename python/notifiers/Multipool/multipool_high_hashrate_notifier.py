@@ -98,7 +98,7 @@ To: """ + str(receiverName) + """ <""" + str(receiver) + """>
 Subject: Alert """ + str(multipoolHash) + """% of network controlled by Multipool
 
 LVL: """ + str(level) + """
-MP: """ + str(float(multipoolHash) / float(1000)) + """%
+MP: """ + str(float(multipoolHash)) + """%
 HR: """ + str(float(multipoolRate) / float(1000)) + """TH/s
 NET HR: """ + str(float(totalNetwork) / float(1000)) + """TH/s
 POOLS: """ + str(float(knownNetworkMinusMultipool) / float(1000)) + """TH/s"""
@@ -152,12 +152,12 @@ class apiCalls:
 		level = 7
 
 		#using decimals vs percentages for ease of coding
-		if multipoolHash >= 5: #50% of network notify on screen but wait as it could be a fluke or they could have a few dedicated miners not on the "multiport"
+		if multipoolHash >= 50: #50% of network notify on screen but wait as it could be a fluke or they could have a few dedicated miners not on the "multiport"
 			print time.strftime("%H:%M:%S") +  ' Here comes multipool, they are at ' + str(float(multipoolRate) / float(1000)) + 'TH/s! They are ' + str(multipoolHash) + '% of the known network'
 
 			#level is the level of the attack (how bad is it). Are they more than the rest of the network? and how much more?
 			level = 6
-			if multipoolHash >= 5:
+			if multipoolHash >= 75:
 				level = 5
 				print '\nThey are really coming now!'
 
