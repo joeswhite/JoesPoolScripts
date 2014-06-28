@@ -1,9 +1,7 @@
 #!/usr/bin/python
 
 #
-# Version 0.001 Pre-Alpha
-#
-# Known Bugs: Email Headers not sent correctly
+# Version 0.002 Alpha
 #
 # Multipool notifier
 # notifies you via email (or text if you have text to email) when multipool.in is

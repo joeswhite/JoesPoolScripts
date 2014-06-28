@@ -1,6 +1,5 @@
- Version 0.001 Pre-Alpha
+ Version 0.002 Alpha
 
- Known Bugs: Email Headers not sent correctly
 
  Multipool notifier
  notifies you via email (or text if you have text to email) when multipool.in is
