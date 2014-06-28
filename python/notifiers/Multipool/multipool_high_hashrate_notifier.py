@@ -26,12 +26,12 @@
 
 #names and emails of persons to notify of multipool hash-n-dash
 notifyNameOne = "Joe"
-notifyEmailOne = "joe@FreiCoin.US"
+notifyEmailOne = "joe@freicoin.us"
 #emailType signifies if you want a short or long form email (0 for short, 1 for long)
 emailTypeOne = 1
 
 #this is ususally a cell
-notifyNameTwo = "Joe Cell"
+notifyNameTwo = "JoeCell"
 notifyEmailTwo = "5705555555@vtext.com"
 #emailType signifies if you want a short or long form email (0 for short, 1 for long)
 emailTypeTwo = 0
@@ -43,7 +43,7 @@ emailTypeTwo = 0
 #emailTypeThree = 1
 
 #name and email the messages come from
-senderName = "Multipool Alerts"
+senderName = "Network Alert"
 senderEmail = "hash-n-dash@freicoin.us"
 
 # ticker letters for coin. eg frc for freicoin doge for dogecoin btc for bitcoin
@@ -59,7 +59,7 @@ import smtplib
 import urllib2
 import json
 import time
-from twisted.python import log
+#from twisted.python import log
 
 
 class email:
@@ -75,16 +75,16 @@ class email:
 			print time.strftime("%H:%M:%S") +  ' Long format email being sent'
 
 			#The actual email message and header construction
-			message = """From: """ + str(senderName) + """ <""" + str(senderEmail) + """>
-To: """ + str(receiverName) + """ <""" + str(receiver) + """> 
-Subject: Alert """ + str(multipoolHash) + """% of network controlled by Multipool
+			message = """From: """ + str(senderName) + """ <""" + str(senderEmail) + """> 
+To:  """ + str(receiverName) + """ <""" + str(receiver) + """>
+Subject: Alert """ + str(multipoolHash) + """% of network controlled by Multipool\n
 
 Hello,
 Multipool is """ + str(multipoolHash) + """% of the network!
-Multipool Hashrate:  """ + str(multipoolRate  / 100) + """TH/s
+Multipool Hashrate:  """ + str(float(multipoolRate)  / float(1000)) + """TH/s
 
-Network Hashrate:  """ + str(totalNetwork / 100) + """TH/s
-Non-Multipool pools total:  """ + str(knownNetworkMinusMultipool / 100) + """TH/s
+Network Hashrate:  """ + str(totalNetwork / float(1000)) + """TH/s
+Non-Multipool pools total:  """ + str(float(knownNetworkMinusMultipool) / float(1000)) + """TH/s
 
 Threat Level: """ + str(level) +""" (1-7 the smaller the number higher risk)"""
 
@@ -98,17 +98,17 @@ To: """ + str(receiverName) + """ <""" + str(receiver) + """>
 Subject: Alert """ + str(multipoolHash) + """% of network controlled by Multipool
 
 LVL: """ + str(level) + """
-MP: """ + str(multipoolHash) + """%
-HR: """ + str(multipoolRate) + """TH/s
-NET HR: """ + str(totalNetwork) + """TH/s
-POOLS: """ + str(knownNetworkMinusMultipool) + """TH/s"""
+MP: """ + str(float(multipoolHash) / float(1000)) + """%
+HR: """ + str(float(multipoolRate) / float(1000)) + """TH/s
+NET HR: """ + str(float(totalNetwork) / float(1000)) + """TH/s
+POOLS: """ + str(float(knownNetworkMinusMultipool) / float(1000)) + """TH/s"""
 
 		#uncomment if you want to see the message being sent
 		#print message
 		try:
 			smtpObj = smtplib.SMTP('localhost')
-			smtpObj.sendmail(sender, receiver, message)         
-			print time.strftime("%H:%M:%S") +  " Attempting to send email"
+			smtpObj.sendmail(sender, receiver, str(message))         
+			print time.strftime("%H:%M:%S") +  " Sending email"
 			success = 1
 
 		except SMTPException:
@@ -152,12 +152,12 @@ class apiCalls:
 		level = 7
 
 		#using decimals vs percentages for ease of coding
-		if multipoolHash >= 50: #50% of network notify on screen but wait as it could be a fluke or they could have a few dedicated miners not on the "multiport"
-			print time.strftime("%H:%M:%S") +  ' Here comes multipool, they are at ' + str(float(multipoolRate) / float(100)) + 'TH/s! They are ' + str(multipoolHash) + '% of the known network'
+		if multipoolHash >= 5: #50% of network notify on screen but wait as it could be a fluke or they could have a few dedicated miners not on the "multiport"
+			print time.strftime("%H:%M:%S") +  ' Here comes multipool, they are at ' + str(float(multipoolRate) / float(1000)) + 'TH/s! They are ' + str(multipoolHash) + '% of the known network'
 
 			#level is the level of the attack (how bad is it). Are they more than the rest of the network? and how much more?
 			level = 6
-			if multipoolHash >= 75:
+			if multipoolHash >= 5:
 				level = 5
 				print '\nThey are really coming now!'
 
@@ -170,7 +170,7 @@ class apiCalls:
 					level = 3
 
                                 #if hashrate is above 95% of the total network
-				if multipoolHAsh >= 95:
+				if multipoolHash >= 95:
 					level = 2
 
                                 #if hashrate is above 99% of the total network
