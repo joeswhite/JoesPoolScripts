@@ -19,7 +19,7 @@
 # Released under the AGPL license
 # Released on June 28th, 2014
 #set to time in minutes to sleep, don't go less than 1 minute, it's futile as the knownpools api only updates once per minute
-sleepTime = 1
+sleepTime=1
 
 #DON'T CHANGE BELOW
 #loop until we break the loop but killing the script
