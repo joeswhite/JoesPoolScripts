@@ -58,6 +58,7 @@ coinToWatch = "frc"
 import smtplib
 import urllib2
 import json
+import time
 from twisted.python import log
 
 
@@ -71,7 +72,7 @@ class email:
 		#check if we want to use the long email alert tempate, if not we will use the small one
 		if str(emailType) == str('1'):
 			#tell the user that the email is long format
-			print 'Long format email being sent'
+			print time.strftime("%H:%M:%S") +  ' Long format email being sent'
 
 			#The actual email message and header construction
 			message = """From: """ + str(senderName) + """ <""" + str(senderEmail) + """>
@@ -89,7 +90,7 @@ class email:
 			"""
 		else:
                         #tell the user that the email is long format
-                        print 'Short format email being sent'
+                        print time.strftime("%H:%M:%S") +  ' Short format email being sent'
 
                         #The actual email message and header construction
 			message = """From: """ + str(senderName)+ """ <""" + str(senderEmail) + """>
@@ -102,8 +103,8 @@ class email:
 			NET HR: """ + str(totalNetwork) + """TH/s
 			POOLS: """ + str(knownNetworkMinusMultipool) + """TH/s"""
 
-
-		print message
+		#uncomment if you want to see the message being sent
+		#print message
 		try:
 			smtpObj = smtplib.SMTP('localhost')
 			smtpObj.sendmail(sender, receiver, message)         
@@ -116,7 +117,7 @@ class email:
 
 		finally:
 			if success == 1:
-				print 'Successfully sent email to ' + str(receiver)
+				print time.strftime("%H:%M:%S") +  ' Successfully sent email to ' + str(receiver)
 			
 
 class apiCalls:
@@ -152,7 +153,7 @@ class apiCalls:
 
 		#using decimals vs percentages for ease of coding
 		if multipoolHash >= 50: #50% of network notify on screen but wait as it could be a fluke or they could have a few dedicated miners not on the "multiport"
-			print 'Here comes multipool, they are at ' + str(float(multipoolRate) / float(100)) + 'TH/s! They are ' + str(multipoolHash) + '% of the known network'
+			print time.strftime("%H:%M:%S") +  ' Here comes multipool, they are at ' + str(float(multipoolRate) / float(100)) + 'TH/s! They are ' + str(multipoolHash) + '% of the known network'
 
 			#level is the level of the attack (how bad is it). Are they more than the rest of the network? and how much more?
 			level = 6
@@ -180,12 +181,12 @@ class apiCalls:
 			print 'Threat level ' + str(level)
 
 			#call sendEmail function to send email to the first alert address, it is a regular email address so we pass 0 to let our emailer know the format
-			print '\nSending email to ' + notifyEmailOne
+			print time.strftime("%H:%M:%S") +  ' Sending email to ' + notifyEmailOne
 			email().sendEmail(senderEmail, notifyEmailOne, notifyNameOne, senderName, int(emailTypeOne), level, multipoolHash, multipoolRate, totalNetwork, knownNetworkMinusMultipool)
 
 
 			#call sendEmail function to send email to the second alert address
-			print 'Sending email to ' + notifyEmailTwo
+			print time.strftime("%H:%M:%S") +  ' Sending email to ' + notifyEmailTwo
                         email().sendEmail(senderEmail, notifyEmailTwo, notifyNameTwo, senderName, int(emailTypeTwo), level, multipoolHash, multipoolRate, totalNetwork, knownNetworkMinusMultipool)
 
 			#you can send this email to as many addresses as you want, just change the email().sendEmail... Line to reflect emailTypeThree, notifyNameThree, etc
@@ -196,5 +197,7 @@ class apiCalls:
 
 if __name__ == "__main__":
 
+	print time.strftime("%H:%M:%S") +  ' Checking'
 	#running the application from the classes/functions is really this easy!
 	apiCalls().joesApi(coinToWatch)
+	print time.strftime("%H:%M:%S") +  ' Finished'
