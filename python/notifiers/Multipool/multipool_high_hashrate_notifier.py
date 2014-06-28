@@ -76,43 +76,43 @@ class email:
 
 			#The actual email message and header construction
 			message = """From: """ + str(senderName) + """ <""" + str(senderEmail) + """>
-			To: """ + str(receiverName) + """ <""" + str(receiver) + """> 
-			Subject: Alert """ + str(multipoolHash) + """% of network controlled by Multipool
+To: """ + str(receiverName) + """ <""" + str(receiver) + """> 
+Subject: Alert """ + str(multipoolHash) + """% of network controlled by Multipool
 
-			Hello,
-			Multipool is """ + str(multipoolHash) + """% of the network!
-			Multipool Hashrate:  """ + str(multipoolRate  / 100) + """TH/s
+Hello,
+Multipool is """ + str(multipoolHash) + """% of the network!
+Multipool Hashrate:  """ + str(multipoolRate  / 100) + """TH/s
 
-			Network Hashrate:  """ + str(totalNetwork / 100) + """TH/s
-			Non-Multipool pools total:  """ + str(knownNetworkMinusMultipool / 100) + """TH/s
+Network Hashrate:  """ + str(totalNetwork / 100) + """TH/s
+Non-Multipool pools total:  """ + str(knownNetworkMinusMultipool / 100) + """TH/s
 
-			Threat Level: """ + str(level) +""" (1-7 the smaller the number higher risk)
-			"""
+Threat Level: """ + str(level) +""" (1-7 the smaller the number higher risk)"""
+
 		else:
                         #tell the user that the email is long format
                         print time.strftime("%H:%M:%S") +  ' Short format email being sent'
 
                         #The actual email message and header construction
 			message = """From: """ + str(senderName)+ """ <""" + str(senderEmail) + """>
-			To: """ + str(receiverName) + """ <""" + str(receiver) + """> 
-			Subject: Alert """ + str(multipoolHash) + """% of network controlled by Multipool
+To: """ + str(receiverName) + """ <""" + str(receiver) + """> 
+Subject: Alert """ + str(multipoolHash) + """% of network controlled by Multipool
 
-			LVL: """ + str(level) + """
-			MP: """ + str(multipoolHash) + """%
-			HR: """ + str(multipoolRate) + """TH/s
-			NET HR: """ + str(totalNetwork) + """TH/s
-			POOLS: """ + str(knownNetworkMinusMultipool) + """TH/s"""
+LVL: """ + str(level) + """
+MP: """ + str(multipoolHash) + """%
+HR: """ + str(multipoolRate) + """TH/s
+NET HR: """ + str(totalNetwork) + """TH/s
+POOLS: """ + str(knownNetworkMinusMultipool) + """TH/s"""
 
 		#uncomment if you want to see the message being sent
 		#print message
 		try:
 			smtpObj = smtplib.SMTP('localhost')
 			smtpObj.sendmail(sender, receiver, message)         
-			print "Sending email"
+			print time.strftime("%H:%M:%S") +  " Attempting to send email"
 			success = 1
 
 		except SMTPException:
-			print "Error: unable to send email"
+			print time.strftime("%H:%M:%S") +  " Error: unable to send email"
 			success = 0
 
 		finally:
